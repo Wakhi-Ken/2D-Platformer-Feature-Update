@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+
     public float resetSpeed = 0.5f;
     public float cameraSpeed = 0.3f;
 
     public Bounds cameraBounds;
 
-    public Transform target;   // 👈 drag player here in Inspector
+    public Transform target; //GameObject transform holding reference to the player.
 
     private float offsetZ;
     private Vector3 currentVelocity;
+
     private bool followsPlayer;
 
     void Awake()
@@ -24,37 +26,66 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        // Safety check so Unity doesn't crash again
-        if (target == null)
-        {
-            Debug.LogError("CameraFollow: No Player assigned!");
-            return;
-        }
+
+        //Assign the player gameobject to the transform target here.
 
         offsetZ = (transform.position - target.position).z;
         followsPlayer = true;
     }
 
+    // Update is called once per frame
     void FixedUpdate()
     {
-        if (!followsPlayer || target == null) return;
-
-        Vector3 aheadTargetPos = target.position + Vector3.forward * offsetZ;
-
-        if (aheadTargetPos.x >= transform.position.x)
+        if (followsPlayer)
         {
-            Vector3 newCameraPosition = Vector3.SmoothDamp(
-                transform.position,
-                aheadTargetPos,
-                ref currentVelocity,
-                cameraSpeed
-            );
+            Vector3 aheadTargetPos = target.position + Vector3.forward * offsetZ;
 
-            transform.position = new Vector3(
-                newCameraPosition.x,
-                transform.position.y,
-                newCameraPosition.z
-            );
+            if (aheadTargetPos.x >= transform.position.x)
+            {
+                Vector3 newCameraPosition = Vector3.SmoothDamp(transform.position, aheadTargetPos,
+                    ref currentVelocity, cameraSpeed);
+
+                transform.position = new Vector3(newCameraPosition.x, transform.position.y,
+                    newCameraPosition.z);
+
+            }
         }
     }
-}
+
+
+} // class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
