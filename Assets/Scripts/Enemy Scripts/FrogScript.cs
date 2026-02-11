@@ -27,13 +27,16 @@ public class FrogScript : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag (MyTags.PLAYER_TAG);
 	}
 
-	void Update() {
-		if(Physics2D.OverlapCircle(transform.position, 0.5f, playerLayer)) {
-			player.GetComponent<PlayerDamage> ().DealDamage ();
-		}
-	}
+    void OnTriggerEnter2D(Collider2D target)
+    {
+        if (target.CompareTag(MyTags.PLAYER_TAG))
+        {
+            target.GetComponent<PlayerDamage>().HitPlayer(transform.position);
+        }
+    }
 
-	void LateUpdate () {
+
+    void LateUpdate () {
 		if (animation_Finished && animation_Started) {
 			animation_Started = false;
 

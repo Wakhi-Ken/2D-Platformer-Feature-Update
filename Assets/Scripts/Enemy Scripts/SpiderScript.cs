@@ -58,9 +58,10 @@ public class SpiderScript : MonoBehaviour {
 		}
 
 		if (target.tag == MyTags.PLAYER_TAG) {
-			target.GetComponent<PlayerDamage> ().DealDamage ();
-		}
-	}
+            target.GetComponent<PlayerDamage>().HitPlayer(transform.position);
+
+        }
+    }
 
 } // class
 
