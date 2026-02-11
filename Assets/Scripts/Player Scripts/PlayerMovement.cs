@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void PlayerWalk() {
 
-		float h = Input.GetAxis("0"); //replace "0" as the value of float h with the correct axis of movement.
+		float h = Input.GetAxis("Horizontal"); //replace "0" as the value of float h with the correct axis of movement.
 		//Note: The value of h must use the right and left arrow or "a" and "d" keys to move the player
 		//right and left.
 
@@ -73,9 +73,9 @@ public class PlayerMovement : MonoBehaviour {
 			// and we jumped before
 			if (jumped) {
 				
-				jumped = false;
+				jumped = true;
 
-				anim.SetBool ("Jump", false);
+				anim.SetBool ("Jump", true);
 			}
 		}
 
@@ -85,11 +85,9 @@ public class PlayerMovement : MonoBehaviour {
 	void PlayerJump() {
 		if (isGrounded) {
 			if (/*Use the spacebar to make the player jump. Delete "jumped" after this comment*/jumped) {
-				jumped = true;
-				myBody.linearVelocity = new Vector2 (myBody.linearVelocity.x, jumpPower);
-
-				anim.SetBool ("Jump", true);
-			}
+                myBody.linearVelocity = new Vector2(myBody.linearVelocity.x, jumpPower);
+                anim.SetBool("Jump", true);
+            }
 		}
 	}
 
